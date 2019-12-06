@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
     public float speed = 10.0f;
     public float leftBoundary = -10.0f;
     public float rightBouandary = 10.0f;
+
+    public GameObject projectilePrefab;
+   
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +23,7 @@ public class PlayerController : MonoBehaviour
     {
         if (transform.position.x < leftBoundary)
         {
-            transform.position = new Vector3(leftBoundary,transfor/position.y transform.position.z);
+            transform.position = new Vector3(leftBoundary,transform.position.y, transform.position.z);
         }
 
         if (transform.position.x > rightBouandary)
@@ -28,5 +32,10 @@ public class PlayerController : MonoBehaviour
         }
         horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //launch a projectile from the player
+            Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
+        }
     }
 }
